@@ -1,0 +1,16 @@
+# Framework
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.0.1
+pytorch-lightning==2.0.8
+transformers==4.33.0
+datasets==2.14.4
+
+# Metrics
+torchmetrics==1.1.1
+scikit-learn==1.3.0
+seqeval==1.2.2
+
+# Utils
+importlib-metadata==6.8.0
+chrisbase==0.4.3
+chrislab==0.5.8
