@@ -1,0 +1,86 @@
+{
+  "env": {
+    "project": "DeepKNLU",
+    "job_name": "KPF-BERT",
+    "hostname": "chris137",
+    "hostaddr": "129.254.164.137",
+    "python_path": "/home/chris/mambaforge/envs/DeepKNLU-23.09/bin/python",
+    "working_path": "/dat/proj/DeepKNLU-23.09",
+    "running_file": "3-seq-label.py",
+    "command_args": [
+      "train",
+      "--data-name",
+      "klue-ner",
+      "--seq-len",
+      "256",
+      "--batch-size",
+      "64",
+      "--num-save",
+      "5",
+      "--epochs",
+      "3",
+      "--pretrained",
+      "pretrained/KPF-BERT",
+      "--device",
+      "1"
+    ],
+    "num_ip_addrs": 1,
+    "max_workers": 32,
+    "output_home": "finetuning/klue-ner/train-KPF-BERT-0906.035511",
+    "logging_file": "message-train.out",
+    "argument_file": "arguments-train.json",
+    "debugging": false,
+    "msg_level": 20,
+    "msg_format": "%(asctime)s ┇ %(levelname)-8s ┇ %(name)36s ┇ %(message)s",
+    "date_format": "[%m.%d %H:%M:%S]"
+  },
+  "time": {
+    "started": "[09.06 03:55:11]",
+    "settled": "[09.06 04:53:57]",
+    "elapsed": "00:58:46.669"
+  },
+  "prog": {
+    "result": {},
+    "csv_logger": "<pytorch_lightning.loggers.csv_logs.CSVLogger object at 0x7f04eaf065c0>",
+    "global_step": 0,
+    "global_epoch": 0.0,
+    "epoch_per_step": 0.0
+  },
+  "data": {
+    "name": "klue-ner",
+    "home": "data",
+    "files": {
+      "train": "klue-ner-v1.1_train.jsonl",
+      "valid": "klue-ner-v1.1_dev.jsonl",
+      "test": null
+    },
+    "caching": false,
+    "redownload": false,
+    "num_check": 2
+  },
+  "model": {
+    "pretrained": "pretrained/KPF-BERT",
+    "home": "finetuning",
+    "name": "{ep:3.1f}, {val_loss:06.4f}, {val_F1c:05.2f}, {val_F1e:05.2f}",
+    "seq_len": 256
+  },
+  "hardware": {
+    "cpu_workers": 32,
+    "accelerator": "gpu",
+    "batch_size": 64,
+    "precision": "32-true",
+    "strategy": "auto",
+    "devices": [
+      1
+    ]
+  },
+  "learning": {
+    "validate_fmt": "loss={val_loss:06.4f}, F1c={val_F1c:05.2f}, F1e={val_F1e:05.2f}",
+    "validate_on": 0.1,
+    "save_by": "max val_F1e",
+    "num_save": 5,
+    "epochs": 3,
+    "lr": 5e-05,
+    "seed": 7
+  }
+}

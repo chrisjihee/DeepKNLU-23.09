@@ -1,0 +1,128 @@
+(DeepKNLU-23.09) chris@chris137:/dat/proj/DeepKNLU-23.09$ python 3-seq-label.py train --data-name klue-ner --seq-len 256 --batch-size 64 --num-save 5 --epochs 3 --pretrained pretrained/KoELECTRA --device 3
+[09.06 03:54:04] ┇ INFO     ┇                       chrisbase.data ┇ =========================================================================================================================================
+[09.06 03:54:04] ┇ INFO     ┇                       chrisbase.data ┇ [INIT] python 3-seq-label.py train --data-name klue-ner --seq-len 256 --batch-size 64 --num-save 5 --epochs 3 --pretrained pretrained/KoELECTRA --device 3
+[09.06 03:54:04] ┇ INFO     ┇                       chrisbase.data ┇ =========================================================================================================================================
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    # | TrainerArguments      | value
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇ -----+-----------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    1 | env.project           | DeepKNLU
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    2 | env.job_name          | KoELECTRA
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    3 | env.hostname          | chris137
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    4 | env.hostaddr          | 129.254.164.137
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    5 | env.python_path       | /home/chris/mambaforge/envs/DeepKNLU-23.09/bin/python
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    6 | env.working_path      | /dat/proj/DeepKNLU-23.09
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    7 | env.running_file      | 3-seq-label.py
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    8 | env.command_args      | ['train', '--data-name', 'klue-ner', '--seq-len', '256', '--batch-size', '64', '--num-save', '5', '--epochs', '3', '--pretrained', 'pretrained/KoELECTRA', '--device', '3']
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇    9 | env.num_ip_addrs      | 1
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   10 | env.max_workers       | 32
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   11 | env.output_home       | finetuning/klue-ner
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   12 | env.logging_file      | message-train.out
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   13 | env.argument_file     | arguments-train.json
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   14 | env.debugging         | False
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   15 | env.msg_level         | 20
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   16 | env.msg_format        | %(asctime)s ┇ %(levelname)-8s ┇ %(name)36s ┇ %(message)s
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   17 | env.date_format       | [%m.%d %H:%M:%S]
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   18 | time.started          |
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   19 | time.settled          |
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   20 | time.elapsed          |
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   21 | prog.result           | {}
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   22 | prog.csv_logger       |
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   23 | prog.global_step      | 0
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   24 | prog.global_epoch     | 0.0
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   25 | prog.epoch_per_step   | 0.0
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   26 | data.name             | klue-ner
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   27 | data.home             | data
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   28 | data.files            | {'train': 'klue-ner-v1.1_train.jsonl', 'valid': 'klue-ner-v1.1_dev.jsonl', 'test': None}
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   29 | data.caching          | False
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   30 | data.redownload       | False
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   31 | data.num_check        | 2
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   32 | model.pretrained      | pretrained/KoELECTRA
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   33 | model.home            | finetuning
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   34 | model.name            | {ep:3.1f}, {val_loss:06.4f}, {val_F1c:05.2f}, {val_F1e:05.2f}
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   35 | model.seq_len         | 256
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   36 | hardware.cpu_workers  | 32
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   37 | hardware.accelerator  | gpu
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   38 | hardware.batch_size   | 64
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   39 | hardware.precision    | 32-true
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   40 | hardware.strategy     | auto
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   41 | hardware.devices      | [3]
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   42 | learning.validate_fmt | loss={val_loss:06.4f}, F1c={val_F1c:05.2f}, F1e={val_F1e:05.2f}
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   43 | learning.validate_on  | 0.1
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   44 | learning.save_by      | max val_F1e
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   45 | learning.num_save     | 5
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   46 | learning.epochs       | 3
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   47 | learning.lr           | 5e-05
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇   48 | learning.seed         | 7
+[09.06 03:54:05] ┇ INFO     ┇                       chrisbase.data ┇ -----------------------------------------------------------------------------------------------------------------------------------------
+[09.06 03:54:05] ┇ INFO     ┇      lightning_fabric.utilities.seed ┇ Global seed set to 7
+[09.06 03:54:05] ┇ INFO     ┇                             __main__ ┇ -----------------------------------------------------------------------------------------------------------------------------------------
+[09.06 03:54:05] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ Creating features from data/klue-ner/klue-ner-v1.1_train.jsonl
+[09.06 03:54:27] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ Loaded 20999 examples from data/klue-ner/klue-ner-v1.1_train.jsonl
+[09.06 03:54:27] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ Extracting labels from data/klue-ner/klue-ner-v1.1_train.jsonl
+[09.06 03:54:48] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ Saved 13 labels to finetuning/klue-ner/label_map.txt
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ =========================================================================================================================================
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   === [Example 0] ===
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = sentence   : 특히 영동고속도로 강릉 방향 문막휴게소에서 만종분기점까지 5km 구간에는 승용차 전용 임시 갓길차로제를 운영하기로 했다.
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = characters : 특/O | 히/O |  /O | 영/B-LC | 동/I-LC | 고/I-LC | 속/I-LC | 도/I-LC | 로/I-LC |  /O | 강/B-LC | 릉/I-LC |  /O | 방/O | 향/O |  /O | 문/B-LC | 막/I-LC | 휴/I-LC | 게/I-LC | 소/I-LC | 에/O |  | 종/I-LC | 분/I-LC | 기/I-LC | 점/I-LC | 까/O | 지/O |  /O | 5/B-QT | k/I-QT | m/I-QT |  /O | 구/O | 간/O | 에/O | 는/O |  /O | 승/O | 용/O | 차/O |  /O | 전/O | 용/O |  /O | 임/O | 시/O |  /O | 갓/O | 길/O | 차/O | 로/O | 제/O | 를/O |  /O | 운/O | 영/O | 하/O | 기/O | 로/O |  /O | 했/O | 다/O | ./O
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = tokens     : [CLS] 특히 영동고속도로 강릉 방향 문 ##막 ##휴 ##게 ##소 ##에 ##서 만 ##종 ##분 ##기 ##점 ##까 ##지 5 ##k ##m 구간 ##에 ##는 승용차 전용 임시 갓 ##길 ##차 ##로 ##제 ##를 운영 ##하 ##기 ##로D] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD]
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = labels     : O O B-LC B-LC O B-LC I-LC I-LC I-LC I-LC O O B-LC I-LC I-LC I-LC I-LC O O B-QT I-QT I-QT O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   ===
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   === [Example 1] ===
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = sentence   : 한군데서 필름을 너무 낭비한 작품입니다.
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = characters : 한/B-QT | 군/I-QT | 데/I-QT | 서/O |  /O | 필/O | 름/O | 을/O |  /O | 너/O | 무/O |  /O | 낭/O | 비/O | 한/O |  /O | 작/O | 품/O | 입/O | 니/O | 다/O | ./O
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = tokens     : [CLS] 한 ##군데 ##서 필름 ##을 너무 낭비 ##한 작품 ##입니다 . [SEP] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [[PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD]
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = labels     : O B-QT I-QT O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   ===
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ Converted 20999 raw examples to 20999 encoded examples
+[09.06 03:55:04] ┇ INFO     ┇                             __main__ ┇ Created train_dataset providing 20999 examples
+[09.06 03:55:04] ┇ INFO     ┇                             __main__ ┇ Created train_dataloader providing 329 batches
+[09.06 03:55:04] ┇ INFO     ┇                             __main__ ┇ -----------------------------------------------------------------------------------------------------------------------------------------
+[09.06 03:55:04] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ Creating features from data/klue-ner/klue-ner-v1.1_dev.jsonl
+[09.06 03:55:10] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ Loaded 4996 examples from data/klue-ner/klue-ner-v1.1_dev.jsonl
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ =========================================================================================================================================
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   === [Example 0] ===
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = sentence   : 경찰은 또 성매매 알선 자금을 관리한 박씨의 딸(32)과 성매매 여성 김모(33)씨 등 16명을 같은 혐의로 불구속 입건했다.
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = characters : 경/B-OG | 찰/I-OG | 은/O |  /O | 또/O |  /O | 성/O | 매/O | 매/O |  /O | 알/O | 선/O |  /O | 자/O | 금/O | 을/O |  /O | 관/O | 리/O | 한/O |  /O | 박/B-PS | 씨/O | 의/O |  /O | 딸/O | (/O |)/O | 과/O |  /O | 성/O | 매/O | 매/O |  /O | 여/O | 성/O |  /O | 김/B-PS | 모/O | (/O | 3/B-QT | 3/I-QT | )/O | 씨/O |  /O | 등/O |  /O | 1/B-QT | 6/I-QT | 명/I-QT | 을/O |  /O | 같/O | 은/O |  /O | 혐/O | 의/O | 로/O |  /O | 불/O | 구/O | 속/O |  /O | 입/O | 건/O | 했/O | 다/O | ./O
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = tokens     : [CLS] 경찰 ##은 또 성매매 알선 자금 ##을 관리 ##한 박 ##씨 ##의 딸 ( 32 ) 과 성매매 여성 김 ##모 ( 33 ) 씨 등 16 ##명 ##을 같 ##은 혐의 ##로 불구 ##속 입건 ##했 ##다 . [SEP] [PAD] [PAD] [PAPAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD]
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = labels     : O B-OG O O O O O O O O B-PS O O O O B-QT O O O O B-PS O O B-QT O O O B-QT I-QT O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   ===
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   === [Example 1] ===
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = sentence   : B 씨는 사법시험 합격증이 위조된 것인지 알 수 없었고, 아들이 좋은 대학에 들어갈 수 있기만을 바라던터라 A 씨를 더 의심하지 않았다.
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = characters : B/B-PS |  /O | 씨/O | 는/O |  /O | 사/O | 법/O | 시/O | 험/O |  /O | 합/O | 격/O | 증/O | 이/O |  /O | 위/O | 조/O | 된/O |  /O | 것/O | 인/O | 지/O |  /O | 알/O |  /O | 수/O |  /O | 없/O | /O | 아/O | 들/O | 이/O |  /O | 좋/O | 은/O |  /O | 대/O | 학/O | 에/O |  /O | 들/O | 어/O | 갈/O |  /O | 수/O |  /O | 있/O | 기/O | 만/O | 을/O |  /O | 바/O | 라/O | 던/O | 터/O | 라/O |  /O | A/B-PS |  /O | 씨/O | 를/O |  /O | 더/O |  /O | 의/O | 심/O | 하/O | 지/O |  /O | 않/O | 았/O | 다/O | ./O
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = tokens     : [CLS] B 씨 ##는 사법 ##시험 합격 ##증 ##이 위조 ##된 것 ##인지 알 수 없 ##었 ##고 , 아들 ##이 좋 ##은 대학 ##에 들어갈 수 있 ##기 ##만 ##을 바라 ##던 ##터 ##라 A 씨 ##를 더 의심 ##하 ##지 않AD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD]
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   = labels     : O B-PS O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O B-PS O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O O
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇   ===
+[09.06 03:55:14] ┇ INFO     ┇                   nlpbook.ner.corpus ┇ Converted 4996 raw examples to 4996 encoded examples
+[09.06 03:55:14] ┇ INFO     ┇                             __main__ ┇ Created valid_dataset providing 4996 examples
+[09.06 03:55:14] ┇ INFO     ┇                             __main__ ┇ Created valid_dataloader providing 79 batches
+[09.06 03:55:14] ┇ INFO     ┇                             __main__ ┇ -----------------------------------------------------------------------------------------------------------------------------------------
+[09.06 03:55:16] ┇ WARNING  ┇          transformers.modeling_utils ┇ Some weights of the model checkpoint at pretrained/KoELECTRA were not used when initializing ElectraForTokenClassification: ['discriminator_predictions.dense.weight', 'discriminator_predictions.dense_prediction.bias', 'discriminator_predictions.dense_prediction.weight', 'discriminator_predictions.dense.bias']
+- This IS expected if you are initializing ElectraForTokenClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing ElectraForTokenClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+[09.06 03:55:16] ┇ WARNING  ┇          transformers.modeling_utils ┇ Some weights of ElectraForTokenClassification were not initialized from the model checkpoint at pretrained/KoELECTRA and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[09.06 03:55:16] ┇ INFO     ┇                             __main__ ┇ -----------------------------------------------------------------------------------------------------------------------------------------
+[09.06 03:55:17] ┇ INFO     ┇ pytorch_lightning.utilities.rank_zero ┇ GPU available: True (cuda), used: True
+[09.06 03:55:17] ┇ INFO     ┇ pytorch_lightning.utilities.rank_zero ┇ TPU available: False, using: 0 TPU cores
+[09.06 03:55:17] ┇ INFO     ┇ pytorch_lightning.utilities.rank_zero ┇ IPU available: False, using: 0 IPUs
+[09.06 03:55:17] ┇ INFO     ┇ pytorch_lightning.utilities.rank_zero ┇ HPU available: False, using: 0 HPUs
+/home/chris/mambaforge/envs/DeepKNLU-23.09/lib/python3.10/site-packages/lightning_fabric/loggers/csv_logs.py:195: UserWarning: Experiment logs directory finetuning/klue-ner/train-KoELECTRA-0906.035516 exists and is not empty. Previous log files in this directory will be deleted when the new ones are saved!
+  rank_zero_warn(
+/home/chris/mambaforge/envs/DeepKNLU-23.09/lib/python3.10/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:617: UserWarning: Checkpoint directory /dat/proj/DeepKNLU-23.09/finetuning/klue-ner/train-KoELECTRA-0906.035516 exists and is not empty.
+  rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+[09.06 03:55:17] ┇ INFO     ┇  pytorch_lightning.accelerators.cuda ┇ LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+[09.06 03:55:17] ┇ INFO     ┇ pytorch_lightning.callbacks.model_summary ┇
+  | Name  | Type                          | Params
+--------------------------------------------------------
+0 | model | ElectraForTokenClassification | 112 M
+--------------------------------------------------------
+112 M     Trainable params
+0         Non-trainable params
+112 M     Total params
+449.363   Total estimated model params size (MB)
+Epoch 2: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████| 329/329 [14:33<00:00,  2.65s/it, v_num=5516, ep=3.000, lr=3.65e-5, loss=0.0213, acc=0.804, val_loss=0.0116, val_acc=0.939, val_F1c=92.80, val_F1e=85.70][09.06 04:37:31] ┇ INFO     ┇ pytorch_lightning.utilities.rank_zero ┇ `Trainer.fit` stopped: `max_epochs=3` reached.
+Epoch 2: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████| 329/329 [14:33<00:00,  2.65s/it, v_num=5516, ep=3.000, lr=3.65e-5, loss=0.0213, acc=0.804, val_loss=0.0116, val_acc=0.939, val_F1c=92.80, val_F1e=85.70]
+[09.06 04:37:34] ┇ INFO     ┇                       chrisbase.data ┇ =========================================================================================================================================
+[09.06 04:37:34] ┇ INFO     ┇                       chrisbase.data ┇ [EXIT] python 3-seq-label.py train --data-name klue-ner --seq-len 256 --batch-size 64 --num-save 5 --epochs 3 --pretrained pretrained/KoELECTRA --device 3 ($=00:43:28.035)
+[09.06 04:37:34] ┇ INFO     ┇                       chrisbase.data ┇ =========================================================================================================================================
+(DeepKNLU-23.09) chris@chris137:/dat/proj/DeepKNLU-23.09$
+
