@@ -25,9 +25,9 @@ def train(
         job_name: str = typer.Option(default=None),
         debugging: bool = typer.Option(default=False),
         # data
-        data_name: str = typer.Option(default="klue-ner-mini"),
-        train_file: str = typer.Option(default="klue-ner-v1.1_train.jsonl"),
-        valid_file: str = typer.Option(default="klue-ner-v1.1_dev.jsonl"),
+        data_name: str = typer.Option(default="klue-ner-mini"),  # "kmou-ner-mini"
+        train_file: str = typer.Option(default="klue-ner-v1.1_train.jsonl"),  # "train.jsonl"
+        valid_file: str = typer.Option(default="klue-ner-v1.1_dev.jsonl"),  # "valid.jsonl"
         test_file: str = typer.Option(default=None),
         num_check: int = typer.Option(default=2),
         # model
