@@ -133,12 +133,12 @@ def test(
         debugging: bool = typer.Option(default=False),
         # data
         data_name: str = typer.Option(default="klue-ner"),  # "kmou-ner"
-        train_file: str = typer.Option(default="klue-ner-v1.1_train.jsonl"),  # "train.jsonl"
-        valid_file: str = typer.Option(default="klue-ner-v1.1_dev.jsonl"),  # "valid.jsonl"
-        test_file: str = typer.Option(default=None),
+        train_file: str = typer.Option(default=None),  # "train.jsonl"
+        valid_file: str = typer.Option(default=None),  # "valid.jsonl"
+        test_file: str = typer.Option(default="klue-ner-v1.1_dev.jsonl"),  # "valid.jsonl"
         num_check: int = typer.Option(default=2),
         # model
-        pretrained: str = typer.Option(default="klue/roberta-small"),
+        pretrained: str = typer.Option(default="pretrained/KPF-BERT"),
         model_name: str = typer.Option(default="train-KPF-BERT-0906.035511"),
         seq_len: int = typer.Option(default=64),
         # hardware
@@ -169,6 +169,43 @@ def test(
     with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
         with ArgumentsUsing(args):
             args.info_args()
+            corpus = NERCorpus(args)
+            tokenizer = AutoTokenizer.from_pretrained(args.model.pretrained, use_fast=True)
+            assert isinstance(tokenizer, PreTrainedTokenizerFast), f"Our code support only PreTrainedTokenizerFast, but used {type(tokenizer)}"
+            checkpoint_path = args.env.output_home / args.model.name
+            assert checkpoint_path.exists(), f"No checkpoint file: {checkpoint_path}"
+            logger.info(f"Using finetuned checkpoint file at {checkpoint_path}")
+            logger.info(hr('-'))
+
+            test_dataset = NERDataset("test", corpus=corpus, tokenizer=tokenizer)
+            test_dataloader = DataLoader(test_dataset, sampler=SequentialSampler(test_dataset),
+                                         num_workers=args.hardware.cpu_workers,
+                                         batch_size=args.hardware.batch_size,
+                                         collate_fn=corpus.encoded_examples_to_batch,
+                                         drop_last=False)
+            logger.info(f"Created test_dataset providing {len(test_dataset)} examples")
+            logger.info(f"Created test_dataloader providing {len(test_dataloader)} batches")
+            logger.info(hr('-'))
+
+            pretrained_model_config = AutoConfig.from_pretrained(
+                args.model.pretrained,
+                num_labels=corpus.num_labels
+            )
+            model = AutoModelForTokenClassification.from_pretrained(
+                args.model.pretrained,
+                config=pretrained_model_config
+            )
+            logger.info(hr('-'))
+
+            with RuntimeChecking(args.configure_csv_logger()):
+                tester: Trainer = nlpbook.make_tester(args)
+                tester.test(NERTask(args,
+                                    model=model,
+                                    trainer=tester,
+                                    epoch_steps=len(test_dataloader),
+                                    valid_dataset=test_dataset),
+                            dataloaders=test_dataloader,
+                            ckpt_path=checkpoint_path)
 
 
 if __name__ == "__main__":

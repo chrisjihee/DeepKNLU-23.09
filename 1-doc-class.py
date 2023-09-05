@@ -130,21 +130,21 @@ def test(
         job_name: str = typer.Option(default=None),
         debugging: bool = typer.Option(default=False),
         # data
-        data_name: str = typer.Option(default="nsmc-mini"),
-        train_file: str = typer.Option(default="ratings_train.txt"),
-        valid_file: str = typer.Option(default="ratings_test.txt"),
-        test_file: str = typer.Option(default=None),
+        data_name: str = typer.Option(default="nsmc"),
+        train_file: str = typer.Option(default=None),
+        valid_file: str = typer.Option(default=None),
+        test_file: str = typer.Option(default="ratings_test.txt"),
         num_check: int = typer.Option(default=2),
         # model
-        pretrained: str = typer.Option(default="klue/roberta-small"),
-        model_name: str = typer.Option(default="{ep:3.1f}, {val_loss:06.4f}, {val_acc:06.4f}"),
+        pretrained: str = typer.Option(default="pretrained/KPF-BERT"),
+        model_name: str = typer.Option(default="train-KPF-BERT-0906.035740"),
         seq_len: int = typer.Option(default=64),
         # hardware
         accelerator: str = typer.Option(default="gpu"),
         precision: str = typer.Option(default="16-mixed"),
         strategy: str = typer.Option(default="auto"),
         device: List[int] = typer.Option(default=[0]),
-        batch_size: int = typer.Option(default=80),
+        batch_size: int = typer.Option(default=64),
 ):
     args = TesterArguments.from_args(
         project=project,
@@ -166,7 +166,42 @@ def test(
     )
     with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
         with ArgumentsUsing(args):
-            args.info_args().set_seed()
+            args.info_args()
+            corpus = NsmcCorpus(args)
+            tokenizer = AutoTokenizer.from_pretrained(args.model.pretrained, use_fast=True)
+            checkpoint_path = args.env.output_home / args.model.name
+            assert checkpoint_path.exists(), f"No checkpoint file: {checkpoint_path}"
+            logger.info(f"Using finetuned checkpoint file at {checkpoint_path}")
+            logger.info(hr('-'))
+
+            test_dataset = ClassificationDataset("test", corpus=corpus, tokenizer=tokenizer)
+            test_dataloader = DataLoader(test_dataset, sampler=SequentialSampler(test_dataset),
+                                         num_workers=args.hardware.cpu_workers,
+                                         batch_size=args.hardware.batch_size,
+                                         collate_fn=nlpbook.data_collator,
+                                         drop_last=False)
+            logger.info(f"Created test_dataset providing {len(test_dataset)} examples")
+            logger.info(f"Created test_dataloader providing {len(test_dataloader)} batches")
+            logger.info(hr('-'))
+
+            pretrained_model_config = AutoConfig.from_pretrained(
+                args.model.pretrained,
+                num_labels=corpus.num_labels
+            )
+            model = AutoModelForSequenceClassification.from_pretrained(
+                args.model.pretrained,
+                config=pretrained_model_config,
+            )
+            logger.info(hr('-'))
+
+            with RuntimeChecking(args.configure_csv_logger()):
+                tester: Trainer = nlpbook.make_tester(args)
+                tester.test(ClassificationTask(args,
+                                               model=model,
+                                               trainer=tester,
+                                               epoch_steps=len(test_dataloader)),
+                            dataloaders=test_dataloader,
+                            ckpt_path=checkpoint_path)
 
 
 if __name__ == "__main__":
