@@ -6,13 +6,13 @@ import torch
 import typer
 from pytorch_lightning import Trainer
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
-from transformers import PreTrainedTokenizerFast, AutoTokenizer, AutoConfig, AutoModelForTokenClassification
+from transformers import AutoTokenizer, AutoConfig, AutoModelForSequenceClassification
 
 import nlpbook
 from chrisbase.data import AppTyper, JobTimer, ArgumentsUsing, RuntimeChecking
 from chrisbase.io import hr
 from nlpbook.arguments import TrainerArguments
-from nlpbook.ner import NERCorpus, NERDataset, NERTask
+from nlpbook.cls import NsmcCorpus, ClassificationDataset, ClassificationTask
 
 logger = logging.getLogger(__name__)
 app = AppTyper()
@@ -77,27 +77,25 @@ def train(
     with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
         with ArgumentsUsing(args):
             args.info_args().set_seed()
-            exit(1)
-            corpus = NERCorpus(args)
+            corpus = NsmcCorpus(args)
             tokenizer = AutoTokenizer.from_pretrained(args.model.pretrained, use_fast=True)
-            assert isinstance(tokenizer, PreTrainedTokenizerFast), f"Our code support only PreTrainedTokenizerFast, but used {type(tokenizer)}"
             logger.info(hr('-'))
 
-            train_dataset = NERDataset("train", corpus=corpus, tokenizer=tokenizer)
+            train_dataset = ClassificationDataset("train", corpus=corpus, tokenizer=tokenizer)
             train_dataloader = DataLoader(train_dataset, sampler=RandomSampler(train_dataset, replacement=False),
                                           num_workers=args.hardware.cpu_workers,
                                           batch_size=args.hardware.batch_size,
-                                          collate_fn=corpus.encoded_examples_to_batch,
+                                          collate_fn=nlpbook.data_collator,
                                           drop_last=False)
             logger.info(f"Created train_dataset providing {len(train_dataset)} examples")
             logger.info(f"Created train_dataloader providing {len(train_dataloader)} batches")
             logger.info(hr('-'))
 
-            valid_dataset = NERDataset("valid", corpus=corpus, tokenizer=tokenizer)
+            valid_dataset = ClassificationDataset("valid", corpus=corpus, tokenizer=tokenizer)
             valid_dataloader = DataLoader(valid_dataset, sampler=SequentialSampler(valid_dataset),
                                           num_workers=args.hardware.cpu_workers,
                                           batch_size=args.hardware.batch_size,
-                                          collate_fn=corpus.encoded_examples_to_batch,
+                                          collate_fn=nlpbook.data_collator,
                                           drop_last=False)
             logger.info(f"Created valid_dataset providing {len(valid_dataset)} examples")
             logger.info(f"Created valid_dataloader providing {len(valid_dataloader)} batches")
@@ -107,19 +105,17 @@ def train(
                 args.model.pretrained,
                 num_labels=corpus.num_labels
             )
-            model = AutoModelForTokenClassification.from_pretrained(
+            model = AutoModelForSequenceClassification.from_pretrained(
                 args.model.pretrained,
-                config=pretrained_model_config
+                config=pretrained_model_config,
             )
             logger.info(hr('-'))
 
             with RuntimeChecking(args.configure_csv_logger()):
                 trainer: Trainer = nlpbook.make_trainer(args)
-                trainer.fit(NERTask(args,
-                                    model=model,
-                                    trainer=trainer,
-                                    epoch_steps=len(train_dataloader),
-                                    valid_dataset=valid_dataset),
+                trainer.fit(ClassificationTask(args,
+                                               model=model,
+                                               trainer=trainer),
                             train_dataloaders=train_dataloader,
                             val_dataloaders=valid_dataloader)
 
