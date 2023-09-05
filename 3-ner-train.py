@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import List
 
 import torch
@@ -10,7 +11,6 @@ from transformers import PreTrainedTokenizerFast, AutoTokenizer, AutoConfig, Aut
 import nlpbook
 from chrisbase.data import AppTyper, JobTimer, ArgumentsUsing, RuntimeChecking
 from chrisbase.io import hr
-from chrislab.common.util import set_tokenizers_parallelism
 from nlpbook.arguments import TrainerArguments
 from nlpbook.ner import NERCorpus, NERDataset, NERTask
 
@@ -114,7 +114,7 @@ def train(
             logger.info(hr('-'))
 
             with RuntimeChecking(args.configure_csv_logger()):
-                set_tokenizers_parallelism(False)
+                os.environ["TOKENIZERS_PARALLELISM"] = "false"
                 torch.set_float32_matmul_precision('high')
                 trainer: Trainer = nlpbook.make_trainer(args)
                 trainer.fit(NERTask(args,
