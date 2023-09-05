@@ -43,6 +43,7 @@ def train(
         # learning
         validate_fmt: str = typer.Option(default="loss={val_loss:06.4f}, acc={val_acc:06.4f}"),
         validate_on: float = typer.Option(default=0.25),
+        num_save: int = typer.Option(default=3),
         save_by: str = typer.Option(default="max val_acc"),
         epochs: int = typer.Option(default=1),
         lr: float = typer.Option(default=5e-5),
@@ -70,6 +71,7 @@ def train(
         batch_size=batch_size,
         validate_fmt=validate_fmt,
         validate_on=validate_on,
+        num_save=num_save,
         save_by=save_by,
         epochs=epochs,
         lr=lr,

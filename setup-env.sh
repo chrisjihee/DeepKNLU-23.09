@@ -18,3 +18,11 @@ git clone git@github.com:chrisjihee/chrisbase.git
 git clone git@github.com:chrisjihee/chrislab.git
 pip install --editable chrisbase
 pip install --editable chrislab
+
+# for pretrained model
+git lfs install
+git clone https://github.com/KPFBERT/kpfbert pretrained/KPF-BERT
+git clone https://huggingface.co/klue/bert-base pretrained/KLUE-BERT
+git clone https://huggingface.co/beomi/kcbert-base pretrained/KcBERT
+git clone https://huggingface.co/monologg/koelectra-base-v3-discriminator pretrained/KoELECTRA
+git lfs uninstall
