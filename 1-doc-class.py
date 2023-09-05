@@ -31,7 +31,7 @@ def train(
         test_file: str = typer.Option(default=None),
         num_check: int = typer.Option(default=2),
         # model
-        pretrained: str = typer.Option(default="klue/roberta-small"),
+        pretrained: str = typer.Option(default="pretrained/KPF-BERT"),
         model_name: str = typer.Option(default="{ep:3.1f}, {val_loss:06.4f}, {val_acc:06.4f}"),
         seq_len: int = typer.Option(default=64),
         # hardware
@@ -130,14 +130,14 @@ def test(
         job_name: str = typer.Option(default=None),
         debugging: bool = typer.Option(default=False),
         # data
-        data_name: str = typer.Option(default="nsmc"),
+        data_name: str = typer.Option(default="nsmc-mini"),
         train_file: str = typer.Option(default=None),
         valid_file: str = typer.Option(default=None),
         test_file: str = typer.Option(default="ratings_test.txt"),
         num_check: int = typer.Option(default=2),
         # model
         pretrained: str = typer.Option(default="pretrained/KPF-BERT"),
-        model_name: str = typer.Option(default="train-KPF-BERT-0906.035740"),
+        model_name: str = typer.Option(default=None),
         seq_len: int = typer.Option(default=64),
         # hardware
         accelerator: str = typer.Option(default="gpu"),
@@ -146,6 +146,10 @@ def test(
         device: List[int] = typer.Option(default=[0]),
         batch_size: int = typer.Option(default=64),
 ):
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
+    torch.set_float32_matmul_precision('high')
+    logging.getLogger("fsspec.local").setLevel(logging.WARNING)
+    logging.getLogger("transformers.configuration_utils").setLevel(logging.WARNING)
     args = TesterArguments.from_args(
         project=project,
         job_name=job_name,
