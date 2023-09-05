@@ -32,7 +32,7 @@ def train(
         num_check: int = typer.Option(default=2),
         # model
         pretrained: str = typer.Option(default="klue/roberta-small"),
-        model_name: str = typer.Option(default="{g_epoch:04.1f}, {val_loss:06.4f}, {val_F1c:05.2f}, {val_F1e:05.2f}"),
+        model_name: str = typer.Option(default="{ep:3.1f}, {val_loss:06.4f}, {val_F1c:05.2f}, {val_F1e:05.2f}"),
         seq_len: int = typer.Option(default=64),
         # hardware
         accelerator: str = typer.Option(default="gpu"),
@@ -42,9 +42,9 @@ def train(
         batch_size: int = typer.Option(default=100),
         # learning
         validate_fmt: str = typer.Option(default="loss={val_loss:06.4f}, F1c={val_F1c:05.2f}, F1e={val_F1e:05.2f}"),
-        validate_on: float = typer.Option(default=0.25),
+        validate_on: float = typer.Option(default=0.1),
         num_save: int = typer.Option(default=3),
-        save_by: str = typer.Option(default="max val_F1c"),
+        save_by: str = typer.Option(default="max val_F1e"),
         epochs: int = typer.Option(default=1),
         lr: float = typer.Option(default=5e-5),
 ):
@@ -139,7 +139,7 @@ def test(
         num_check: int = typer.Option(default=2),
         # model
         pretrained: str = typer.Option(default="klue/roberta-small"),
-        model_name: str = typer.Option(default="{g_epoch:04.1f}, {val_loss:06.4f}, {val_acc:06.4f}"),
+        model_name: str = typer.Option(default="{ep:3.1f}, {val_loss:06.4f}, {val_F1c:05.2f}, {val_F1e:05.2f}"),
         seq_len: int = typer.Option(default=64),
         # hardware
         accelerator: str = typer.Option(default="gpu"),
