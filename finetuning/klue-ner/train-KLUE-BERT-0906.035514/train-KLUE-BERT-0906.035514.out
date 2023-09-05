@@ -119,7 +119,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 0         Non-trainable params
 110 M     Total params
 440.147   Total estimated model params size (MB)
-Epoch 2: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 329/329 [14:27<00:00,  2.64s/it, v_num=5514, ep=3.000, lr=3.65e-5, loss=0.00347, acc=0.952, val_loss=0.0103, val_acc=0.928, val_F1c=92.50, val_F1e=85.80][09.06 04:38:32] ┇ INFO     ┇ pytorch_lightning.utilities.rank_zero ┇ `Trainer.fit` stopped: `max_epochs=3` reached.
+Epoch 2: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 329/329 [14:27<00:00,  2.64s/it, v_num=5514, ep=3.000, lr=3.65e-5, loss=0.00347, acc=0.952, val_loss=0.0103, val_acc=0.928, val_F1c=92.50, val_F1e=85.80]
+[09.06 04:38:32] ┇ INFO     ┇ pytorch_lightning.utilities.rank_zero ┇ `Trainer.fit` stopped: `max_epochs=3` reached.
 Epoch 2: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 329/329 [14:27<00:00,  2.64s/it, v_num=5514, ep=3.000, lr=3.65e-5, loss=0.00347, acc=0.952, val_loss=0.0103, val_acc=0.928, val_F1c=92.50, val_F1e=85.80]
 [09.06 04:38:34] ┇ INFO     ┇                       chrisbase.data ┇ =========================================================================================================================================
 [09.06 04:38:34] ┇ INFO     ┇                       chrisbase.data ┇ [EXIT] python 3-seq-label.py train --data-name klue-ner --seq-len 256 --batch-size 64 --num-save 5 --epochs 3 --pretrained pretrained/KLUE-BERT --device 2 ($=00:44:31.983)
