@@ -32,7 +32,7 @@ def train(
         num_check: int = typer.Option(default=2),
         # model
         pretrained: str = typer.Option(default="klue/roberta-small"),
-        model_name: str = typer.Option(default="{ep:04.1f}, {val_loss:06.4f}, {val_acc:06.4f}"),
+        model_name: str = typer.Option(default="{ep:3.1f}, {val_loss:06.4f}, {val_acc:06.4f}"),
         seq_len: int = typer.Option(default=64),
         # hardware
         accelerator: str = typer.Option(default="gpu"),
@@ -137,7 +137,7 @@ def test(
         num_check: int = typer.Option(default=2),
         # model
         pretrained: str = typer.Option(default="klue/roberta-small"),
-        model_name: str = typer.Option(default="{ep:04.1f}, {val_loss:06.4f}, {val_acc:06.4f}"),
+        model_name: str = typer.Option(default="{ep:3.1f}, {val_loss:06.4f}, {val_acc:06.4f}"),
         seq_len: int = typer.Option(default=64),
         # hardware
         accelerator: str = typer.Option(default="gpu"),
