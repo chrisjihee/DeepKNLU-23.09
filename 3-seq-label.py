@@ -1,17 +1,21 @@
 import logging
 import os
+from pathlib import Path
 from typing import List
 
 import torch
 import typer
+from flask import Flask
 from pytorch_lightning import Trainer
+from torch import Tensor
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from transformers import PreTrainedTokenizerFast, AutoTokenizer, AutoConfig, AutoModelForTokenClassification
+from transformers.modeling_outputs import TokenClassifierOutput
 
 import nlpbook
 from chrisbase.data import AppTyper, JobTimer, ArgumentsUsing, RuntimeChecking
 from chrisbase.io import hr
-from nlpbook.arguments import TrainerArguments, TesterArguments
+from nlpbook.arguments import TrainerArguments, TesterArguments, ServerArguments
 from nlpbook.ner import NERCorpus, NERDataset, NERTask
 
 logger = logging.getLogger(__name__)
@@ -210,6 +214,113 @@ def test(
                                     test_dataset=test_dataset),
                             dataloaders=test_dataloader,
                             ckpt_path=checkpoint_path)
+
+
+@app.command()
+def serve(
+        # env
+        project: str = typer.Option(default="DeepKNLU"),
+        job_name: str = typer.Option(default=None),
+        debugging: bool = typer.Option(default=False),
+        # data
+        data_name: str = typer.Option(default="klue-ner"),  # "kmou-ner"
+        train_file: str = typer.Option(default=None),
+        valid_file: str = typer.Option(default=None),
+        test_file: str = typer.Option(default="ratings_test.txt"),
+        num_check: int = typer.Option(default=2),
+        # model
+        pretrained: str = typer.Option(default="pretrained/KPF-BERT"),
+        model_name: str = typer.Option(default=None),
+        seq_len: int = typer.Option(default=64),
+        # hardware
+        accelerator: str = typer.Option(default="gpu"),
+        precision: str = typer.Option(default="16-mixed"),
+        strategy: str = typer.Option(default="auto"),
+        device: List[int] = typer.Option(default=[0]),
+        batch_size: int = typer.Option(default=64),
+):
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
+    torch.set_float32_matmul_precision('high')
+    logging.getLogger("fsspec.local").setLevel(logging.WARNING)
+    logging.getLogger("transformers.configuration_utils").setLevel(logging.WARNING)
+    args = ServerArguments.from_args(
+        project=project,
+        job_name=job_name,
+        debugging=debugging,
+        data_name=data_name,
+        train_file=train_file,
+        valid_file=valid_file,
+        test_file=test_file,
+        num_check=num_check,
+        pretrained=pretrained,
+        model_name=model_name,
+        seq_len=seq_len,
+        accelerator=accelerator,
+        precision=precision,
+        strategy=strategy,
+        device=device,
+        batch_size=batch_size,
+    )
+    with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
+        with ArgumentsUsing(args):
+            args.info_args()
+            corpus = NERCorpus(args)
+            tokenizer = AutoTokenizer.from_pretrained(args.model.pretrained, use_fast=True)
+            checkpoint_path = args.env.output_home / args.model.name
+            assert checkpoint_path.exists(), f"No checkpoint file: {checkpoint_path}"
+            logger.info(f"Using finetuned checkpoint file at {checkpoint_path}")
+            checkpoint: dict = torch.load(checkpoint_path, map_location=torch.device("cpu"))
+            label_map_path: Path = args.env.output_home / "label_map.txt"
+            assert label_map_path.exists(), f"No downstream label file: {label_map_path}"
+            logger.info(f"Using label map file at {label_map_path}")
+            labels = label_map_path.read_text().splitlines(keepends=False)
+            id_to_label = {idx: label for idx, label in enumerate(labels)}
+            logger.info(hr('-'))
+
+            pretrained_model_config = AutoConfig.from_pretrained(
+                args.model.pretrained,
+                num_labels=corpus.num_labels
+            )
+            model = AutoModelForTokenClassification.from_pretrained(
+                args.model.pretrained,
+                config=pretrained_model_config
+            )
+            model.load_state_dict({k.replace("model.", ""): v for k, v in checkpoint['state_dict'].items()})
+            model.eval()
+            logger.info(hr('-'))
+
+            def inference_fn(sentence):
+                inputs = tokenizer(
+                    [sentence],
+                    max_length=args.model.seq_len,
+                    padding="max_length",
+                    truncation=True,
+                )
+                with torch.no_grad():
+                    outputs: TokenClassifierOutput = model(**{k: torch.tensor(v) for k, v in inputs.items()})
+                    all_probs: Tensor = outputs.logits[0].softmax(dim=1)
+                    top_probs, top_preds = torch.topk(all_probs, dim=1, k=1)
+                    tokens = tokenizer.convert_ids_to_tokens(inputs["input_ids"][0])
+                    top_labels = [id_to_label[pred[0].item()] for pred in top_preds]
+                    result = []
+                    for token, label, top_prob in zip(tokens, top_labels, top_probs):
+                        if token in tokenizer.all_special_tokens:
+                            continue
+                        result.append({
+                            "token": token,
+                            "label": label,
+                            "prob": f"{round(top_prob[0].item(), 4):.4f}",
+                        })
+                return {
+                    'sentence': sentence,
+                    'result': result,
+                }
+
+            with RuntimeChecking(args.configure_csv_logger()):
+                server: Flask = nlpbook.make_server(inference_fn,
+                                                    template_file="serve_ner.html",
+                                                    ngrok_home=args.env.working_path)
+                server.run()
 
 
 if __name__ == "__main__":
