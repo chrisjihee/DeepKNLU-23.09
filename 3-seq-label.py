@@ -39,7 +39,7 @@ def train(
         precision: str = typer.Option(default="32-true"),
         strategy: str = typer.Option(default="auto"),
         device: List[int] = typer.Option(default=[0]),
-        batch_size: int = typer.Option(default=100),
+        batch_size: int = typer.Option(default=64),
         # learning
         validate_fmt: str = typer.Option(default="loss={val_loss:06.4f}, F1c={val_F1c:05.2f}, F1e={val_F1e:05.2f}"),
         validate_on: float = typer.Option(default=0.1),
