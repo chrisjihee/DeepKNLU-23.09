@@ -120,7 +120,7 @@ def train(
                                     model=model,
                                     trainer=trainer,
                                     epoch_steps=len(train_dataloader),
-                                    valid_dataset=valid_dataset),
+                                    test_dataset=valid_dataset),
                             train_dataloaders=train_dataloader,
                             val_dataloaders=valid_dataloader)
 
@@ -148,6 +148,10 @@ def test(
         device: List[int] = typer.Option(default=[0]),
         batch_size: int = typer.Option(default=64),
 ):
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
+    torch.set_float32_matmul_precision('high')
+    logging.getLogger("fsspec.local").setLevel(logging.WARNING)
+    logging.getLogger("transformers.configuration_utils").setLevel(logging.WARNING)
     args = TesterArguments.from_args(
         project=project,
         job_name=job_name,
@@ -203,7 +207,7 @@ def test(
                                     model=model,
                                     trainer=tester,
                                     epoch_steps=len(test_dataloader),
-                                    valid_dataset=test_dataset),
+                                    test_dataset=test_dataset),
                             dataloaders=test_dataloader,
                             ckpt_path=checkpoint_path)
 
