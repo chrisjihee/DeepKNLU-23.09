@@ -7,7 +7,7 @@ pip list
 
 # for editing library
 rm -rf chrisbase* chrislab*
-pip download --no-binary :all: --no-deps chrisbase==0.4.4; tar zxf chrisbase-*.tar.gz; rm chrisbase-*.tar.gz;
+pip download --no-binary :all: --no-deps chrisbase==0.4.5; tar zxf chrisbase-*.tar.gz; rm chrisbase-*.tar.gz;
 pip download --no-binary :all: --no-deps chrislab==0.6.0; tar zxf chrislab-*.tar.gz; rm chrislab-*.tar.gz;
 pip install --editable chrisbase-*
 pip install --editable chrislab-*

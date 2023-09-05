@@ -12,5 +12,5 @@ seqeval==1.2.2
 
 # Utils
 importlib-metadata==6.8.0
-chrisbase==0.4.4
+chrisbase==0.4.5
 chrislab==0.6.0
