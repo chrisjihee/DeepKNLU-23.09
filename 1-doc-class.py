@@ -117,7 +117,8 @@ def train(
                 trainer: Trainer = nlpbook.make_trainer(args)
                 trainer.fit(ClassificationTask(args,
                                                model=model,
-                                               trainer=trainer),
+                                               trainer=trainer,
+                                               epoch_steps=len(train_dataloader)),
                             train_dataloaders=train_dataloader,
                             val_dataloaders=valid_dataloader)
 
