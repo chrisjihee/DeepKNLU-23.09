@@ -47,6 +47,10 @@ def train(
         epochs: int = typer.Option(default=1),
         lr: float = typer.Option(default=5e-5),
 ):
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
+    torch.set_float32_matmul_precision('high')
+    logging.getLogger("fsspec.local").setLevel(logging.WARNING)
+    logging.getLogger("transformers.configuration_utils").setLevel(logging.WARNING)
     args = TrainerArguments.from_args(
         project=project,
         job_name=job_name,
@@ -70,11 +74,6 @@ def train(
         epochs=epochs,
         lr=lr,
     )
-
-    # logging.getLogger("nlpbook.ner.task").setLevel(logging.INFO)
-    logging.getLogger("nlpbook.ner.corpus").setLevel(logging.INFO)
-    logging.getLogger("fsspec.local").setLevel(logging.INFO)
-    logging.getLogger("transformers.configuration_utils").setLevel(logging.WARNING)
     with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
         with ArgumentsUsing(args):
             args.info_args().set_seed()
@@ -114,8 +113,6 @@ def train(
             logger.info(hr('-'))
 
             with RuntimeChecking(args.configure_csv_logger()):
-                os.environ["TOKENIZERS_PARALLELISM"] = "false"
-                torch.set_float32_matmul_precision('high')
                 trainer: Trainer = nlpbook.make_trainer(args)
                 trainer.fit(NERTask(args,
                                     model=model,
