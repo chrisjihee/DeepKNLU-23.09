@@ -23,7 +23,7 @@ def train(
         # env
         project: str = typer.Option(default="DeepKNLU"),
         job_name: str = typer.Option(default=None),
-        debugging: bool = typer.Option(default=True),
+        debugging: bool = typer.Option(default=False),
         # data
         data_name: str = typer.Option(default="klue-ner-mini"),
         train_file: str = typer.Option(default="klue-ner-v1.1_train.jsonl"),
