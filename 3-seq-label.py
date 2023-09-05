@@ -132,21 +132,21 @@ def test(
         job_name: str = typer.Option(default=None),
         debugging: bool = typer.Option(default=False),
         # data
-        data_name: str = typer.Option(default="nsmc-mini"),
-        train_file: str = typer.Option(default="ratings_train.txt"),
-        valid_file: str = typer.Option(default="ratings_test.txt"),
+        data_name: str = typer.Option(default="klue-ner"),  # "kmou-ner"
+        train_file: str = typer.Option(default="klue-ner-v1.1_train.jsonl"),  # "train.jsonl"
+        valid_file: str = typer.Option(default="klue-ner-v1.1_dev.jsonl"),  # "valid.jsonl"
         test_file: str = typer.Option(default=None),
         num_check: int = typer.Option(default=2),
         # model
         pretrained: str = typer.Option(default="klue/roberta-small"),
-        model_name: str = typer.Option(default="{ep:3.1f}, {val_loss:06.4f}, {val_F1c:05.2f}, {val_F1e:05.2f}"),
+        model_name: str = typer.Option(default="train-KPF-BERT-0906.035511"),
         seq_len: int = typer.Option(default=64),
         # hardware
         accelerator: str = typer.Option(default="gpu"),
-        precision: str = typer.Option(default="16-mixed"),
+        precision: str = typer.Option(default="32-true"),
         strategy: str = typer.Option(default="auto"),
         device: List[int] = typer.Option(default=[0]),
-        batch_size: int = typer.Option(default=80),
+        batch_size: int = typer.Option(default=64),
 ):
     args = TesterArguments.from_args(
         project=project,
@@ -168,7 +168,7 @@ def test(
     )
     with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
         with ArgumentsUsing(args):
-            args.info_args().set_seed()
+            args.info_args()
 
 
 if __name__ == "__main__":
