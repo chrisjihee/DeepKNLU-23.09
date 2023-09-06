@@ -1,1 +1,1 @@
-python 3-seq-label.py test --data-name klue-ner --seq-len 256 --batch-size 64 --pretrained pretrained/KPF-BERT --device 0
+python 3-seq-label.py test --data-name klue-ner --seq-len 64 --batch-size 64 --pretrained klue/roberta-small --device 0
