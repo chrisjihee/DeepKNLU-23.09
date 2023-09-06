@@ -24,3 +24,5 @@ git lfs install
 git clone https://github.com/KPFBERT/kpfbert pretrained/KPF-BERT
 git clone https://huggingface.co/klue/bert-base pretrained/KLUE-BERT
 git lfs uninstall
+
+git clone guest@129.254.164.137:git/pretrained-com
