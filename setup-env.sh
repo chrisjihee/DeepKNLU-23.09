@@ -14,7 +14,7 @@ pip install --editable chrislab-*
 
 # for developing library
 rm -rf chrisbase* chrislab*
-git clone git@github.com:chrisjihee/chrisbase.git
+git clone https://github.com/chrisjihee/chrisbase.git
 git clone https://github.com/chrisjihee/chrislab.git
 pip install --editable chrisbase
 pip install --editable chrislab
