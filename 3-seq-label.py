@@ -80,7 +80,7 @@ def train(
         epochs=epochs,
         lr=lr,
     )
-    with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
+    with JobTimer(f"python {args.env.current_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
         with ArgumentsUsing(args):
             args.info_args().set_seed()
             corpus = NERCorpus(args)
@@ -174,7 +174,7 @@ def test(
         device=device,
         batch_size=batch_size,
     )
-    with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
+    with JobTimer(f"python {args.env.current_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
         with ArgumentsUsing(args):
             args.info_args()
             corpus = NERCorpus(args)
@@ -261,7 +261,7 @@ def serve(
         device=device,
         batch_size=batch_size,
     )
-    with JobTimer(f"python {args.env.running_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
+    with JobTimer(f"python {args.env.current_file} {' '.join(args.env.command_args)}", rt=1, rb=1, rc='=', verbose=True, flush_sec=0.3):
         with ArgumentsUsing(args):
             args.info_args()
             corpus = NERCorpus(args)
